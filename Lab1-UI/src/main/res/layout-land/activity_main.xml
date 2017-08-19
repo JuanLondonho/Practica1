@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.4">
+
+        <ImageView
+            android:id="@+id/imgLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="311dp"
+            android:orientation="vertical"
+            app:srcCompat="@drawable/logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="0.6">
+
+        <EditText
+            android:id="@+id/txtUserLog"
+            style="@style/styleTxt"
+            android:hint="@string/email"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/txtUserPass"
+            style="@style/styleTxt"
+            android:hint="@string/password"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/styleBtn"
+            android:text="@string/enter" />
+
+        <TextView
+            android:id="@+id/txtViewRegister"
+            style="@style/styleTxtView"
+            android:gravity="center"
+            android:text="@string/register"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
