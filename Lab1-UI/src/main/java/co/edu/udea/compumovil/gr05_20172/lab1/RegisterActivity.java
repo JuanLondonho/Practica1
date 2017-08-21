@@ -26,6 +26,12 @@ import android.widget.TextView;
 import static android.R.attr.data;
 import static android.R.attr.layout_row;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
 
     //DatePickerDialog.OnDateSetListener  mDateSetListener;
@@ -42,6 +48,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         displayDate.setOnClickListener(this);
         iv = (ImageView)findViewById(R.id.imgUser);
 
+        PlaceAutocompleteFragment autocompleteFragment =
+                (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        // filter search by cities only
+        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
+                .setCountry("CO")
+                .build();
+
+        autocompleteFragment.setFilter(typeFilter);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+
+                // do something after the place was selected
+                Log.i("TAG", "Place: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i("TAG", "An error occurred: " + status);
+            }
+        });
     }
 
     @Override

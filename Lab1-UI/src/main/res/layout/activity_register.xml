@@ -103,6 +103,11 @@
                 android:inputType="textFilter"
                 android:hint="@string/city" />
 
+            <fragment
+                android:id="@+id/place_autocomplete_fragment"
+                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                style="@style/styleTxt" />
+
             <Button
                 android:id="@+id/btnUserRegister"
                 style="@style/styleBtn"
