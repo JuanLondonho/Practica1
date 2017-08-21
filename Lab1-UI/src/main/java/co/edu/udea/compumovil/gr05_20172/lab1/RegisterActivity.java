@@ -23,21 +23,20 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static android.R.attr.data;
-import static android.R.attr.layout_row;
-
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, PlaceSelectionListener{
 
-    //DatePickerDialog.OnDateSetListener  mDateSetListener;
     TextView displayDate;
     private static final int SELECTED_PICTURE=1;
     ImageView iv;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +57,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .build();
 
         autocompleteFragment.setFilter(typeFilter);
+        autocompleteFragment.setOnPlaceSelectedListener(this);
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-
-                // do something after the place was selected
-                Log.i("TAG", "Place: " + place.getName());
-            }
-
-            @Override
-            public void onError(Status status) {
-                Log.i("TAG", "An error occurred: " + status);
-            }
-        });
     }
 
     @Override
@@ -138,5 +125,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         displayDate.setText(date);
         Log.d("TAG", "onDateSet");
+    }
+
+    @Override
+    public void onPlaceSelected(Place place) {
+        // do something after the place was selected
+        Log.i("TAG", "Place: " + place.getName());
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.i("TAG", "An error occurred: " + status);
     }
 }
