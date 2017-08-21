@@ -2,6 +2,7 @@ package co.edu.udea.compumovil.gr05_20172.lab1;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,13 +15,16 @@ import java.util.Calendar;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
@@ -31,11 +35,24 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, PlaceSelectionListener{
 
-    TextView displayDate;
+    private TextView displayDate;
     private static final int SELECTED_PICTURE=1;
-    ImageView iv;
+    private ImageView iv;
 
+    // Global values for sharedPrefences
 
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor mEditor;
+
+    String name;
+    String lastName;
+    String gender;
+    String birthDate;
+    String phone;
+    String address;
+    String email;
+    String password;
+    String city;
 
 
     @Override
@@ -47,10 +64,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         displayDate.setOnClickListener(this);
         iv = (ImageView)findViewById(R.id.imgUser);
 
+        // Google PlaceAutocomplete API set up
         PlaceAutocompleteFragment autocompleteFragment =
                 (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        // filter search by cities only
         AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
                 .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
                 .setCountry("CO")
@@ -58,6 +75,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         autocompleteFragment.setFilter(typeFilter);
         autocompleteFragment.setOnPlaceSelectedListener(this);
+
+        // Shared preferences set up
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mPreferences.edit();
+
 
     }
 
@@ -85,7 +108,45 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, SELECTED_PICTURE);
                 break;
+
+            case R.id.btnUserRegister:
+
+                name = ((TextView) findViewById(R.id.txtUserName)).getText().toString();
+                lastName = ((TextView) findViewById(R.id.txtUserLastName)).getText().toString();
+
+                if(((RadioButton)findViewById(R.id.rBtnMale)).isChecked()){
+                    gender = "male";
+                } else {
+                    gender = "false";
+                }
+
+                phone = ((EditText) findViewById(R.id.txtUserPhone)).getText().toString();
+                address = ((EditText) findViewById(R.id.txtUserAddress)).getText().toString();
+                email = ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
+                password =  ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
+
+                mEditor.putString("name", name);
+                mEditor.putString("lastname", lastName);
+                mEditor.putString("gender", gender);
+                mEditor.putString("birthDate", birthDate);
+                mEditor.putString("phone", phone);
+                mEditor.putString("adress", address);
+                mEditor.putString("email", email);
+                mEditor.putString("password", password);
+                mEditor.putString("city", city);
+                mEditor.commit();
+
+                // check if variables were saved in shared preferences.
+                checkSharedPreferences();
+                break;
         }
+    }
+
+    private void checkSharedPreferences() {
+        String name = mPreferences.getString("name", "");
+        String password = mPreferences.getString("password", "");
+
+        Log.d("TAG", "name: " + name + " password: " + password);
     }
 
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -123,14 +184,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         month = month + 1;
         String date =  + month + "/" + day  + "/" + year;
 
+        birthDate = date;
+
         displayDate.setText(date);
-        Log.d("TAG", "onDateSet");
+        Log.d("TAG", "onDateSet: " + birthDate);
     }
 
     @Override
     public void onPlaceSelected(Place place) {
         // do something after the place was selected
-        Log.i("TAG", "Place: " + place.getName());
+
+        city = (String) place.getName();
+
+        Log.i("TAG", "Place: " + city);
     }
 
     @Override

@@ -112,7 +112,8 @@
                 android:id="@+id/btnUserRegister"
                 style="@style/styleBtn"
                 android:layout_marginTop="40dp"
-                android:text="@string/register" />
+                android:text="@string/register"
+                android:onClick="onClick"/>
 
 
         </LinearLayout>
