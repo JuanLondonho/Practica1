@@ -70,11 +70,10 @@
                     android:hint="@string/address"
                     android:inputType="textPersonName|textNoSuggestions" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView2"
-                    style="@style/styleTxt"
-                    android:hint="@string/city"
-                    android:inputType="textFilter" />
+                <fragment
+                    android:id="@+id/place_autocomplete_fragment"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    style="@style/styleTxt" />
 
             </LinearLayout>
 

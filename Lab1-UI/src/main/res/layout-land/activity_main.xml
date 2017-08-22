@@ -46,9 +46,9 @@
         <TextView
             android:id="@+id/txtViewRegister"
             style="@style/styleTxtView"
-            android:gravity="center"
             android:text="@string/register"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="20dp"
+            />
 
     </LinearLayout>
 

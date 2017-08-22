@@ -21,11 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
@@ -44,21 +46,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
 
-    String name;
-    String lastName;
-    String gender;
-    String birthDate;
-    String phone;
-    String address;
-    String email;
-    String password;
-    String city;
+    String name="";
+    String lastName="";
+    String gender="";
+    String birthDate="";
+    String phone="";
+    String address="";
+    String email="";
+    String password="";
+    String city="";
+
+
+    // image setup
+
+    ImageView image;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         displayDate = (TextView) findViewById(R.id.tvDate);
         displayDate.setOnClickListener(this);
@@ -76,10 +84,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         autocompleteFragment.setFilter(typeFilter);
         autocompleteFragment.setOnPlaceSelectedListener(this);
 
+        Button button = ((Button)findViewById(R.id.btnUserRegister));
+        button.setOnClickListener(this);
+
         // Shared preferences set up
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferences = getSharedPreferences("DATOS", 0);
         mEditor = mPreferences.edit();
+
+
+
+
 
 
     }
@@ -93,6 +108,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
+                Log.d("TAG", "case1");
+
                 DatePickerDialog dialog = new DatePickerDialog(
                         RegisterActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -105,39 +122,56 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.imgUser:
+                Log.d("TAG", "case2");
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, SELECTED_PICTURE);
                 break;
 
             case R.id.btnUserRegister:
+                Log.d("TAG", "case3");
 
-                name = ((TextView) findViewById(R.id.txtUserName)).getText().toString();
-                lastName = ((TextView) findViewById(R.id.txtUserLastName)).getText().toString();
+
+                name = ((EditText) findViewById(R.id.txtUserName)).getText().toString();
+                lastName = ((EditText) findViewById(R.id.txtUserLastName)).getText().toString();
 
                 if(((RadioButton)findViewById(R.id.rBtnMale)).isChecked()){
                     gender = "male";
-                } else {
-                    gender = "false";
+                }
+                if(((RadioButton)findViewById(R.id.rBtnFemale)).isChecked()) {
+                    gender = "female";
                 }
 
                 phone = ((EditText) findViewById(R.id.txtUserPhone)).getText().toString();
                 address = ((EditText) findViewById(R.id.txtUserAddress)).getText().toString();
-                email = ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
+                email = ((EditText) findViewById(R.id.txtUserEmail)).getText().toString();
                 password =  ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
 
-                mEditor.putString("name", name);
-                mEditor.putString("lastname", lastName);
-                mEditor.putString("gender", gender);
-                mEditor.putString("birthDate", birthDate);
-                mEditor.putString("phone", phone);
-                mEditor.putString("adress", address);
-                mEditor.putString("email", email);
-                mEditor.putString("password", password);
-                mEditor.putString("city", city);
-                mEditor.commit();
+                if(name.equals("") || lastName.equals("") || gender.equals("") || phone.equals("")
+                        || address.equals("") || email.equals("") || password.equals("") || city.equals("")
+                        || birthDate.equals("")){
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Faltan campos por rellenar", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }else {
+
+                    mEditor.putString("name", name);
+                    mEditor.putString("lastName", lastName);
+                    mEditor.putString("gender", gender);
+                    mEditor.putString("birthDate", birthDate);
+                    mEditor.putString("phone", phone);
+                    mEditor.putString("address", address);
+                    mEditor.putString("email", email);
+                    mEditor.putString("password", password);
+                    mEditor.putString("city", city);
+                    mEditor.commit();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
 
                 // check if variables were saved in shared preferences.
-                checkSharedPreferences();
+
                 break;
         }
     }

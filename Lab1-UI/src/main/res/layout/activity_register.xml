@@ -97,11 +97,6 @@
                 android:inputType="textPassword"
                 android:hint="@string/password" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
-                style="@style/styleTxt"
-                android:inputType="textFilter"
-                android:hint="@string/city" />
 
             <fragment
                 android:id="@+id/place_autocomplete_fragment"
@@ -113,7 +108,7 @@
                 style="@style/styleBtn"
                 android:layout_marginTop="40dp"
                 android:text="@string/register"
-                android:onClick="onClick"/>
+                />
 
 
         </LinearLayout>
