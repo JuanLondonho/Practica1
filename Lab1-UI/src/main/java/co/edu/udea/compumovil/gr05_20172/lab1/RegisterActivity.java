@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String name="";
     String lastName="";
     String gender="";
-    String birthDate="";
+    String birthDate="DD/MM/AA";
     String phone="";
     String address="";
     String email="";
@@ -80,10 +81,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
         displayDate = (TextView) findViewById(R.id.tvDate);
         displayDate.setOnClickListener(this);
         iv = (ImageView)findViewById(R.id.imgUser);
+
 
         // Google PlaceAutocomplete API set up
         PlaceAutocompleteFragment autocompleteFragment =
@@ -106,9 +107,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEditor = mPreferences.edit();
 
 
+        // restore the image route and the date value after the cellphone has been rotated.
 
+        if(savedInstanceState!=null){
+            try {
+                File f=new File(savedInstanceState.getString("route"), "profile.jpg");
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                ImageView img=(ImageView)findViewById(R.id.imgUser);
+                img.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
 
+            // persist the birthDate and the route link after consecutive rotations
 
+            birthDate =savedInstanceState.getString("birthday");
+            route = savedInstanceState.getString("route");
+
+            ((TextView)findViewById(R.id.tvDate)).setText(savedInstanceState.getString("birthday"));
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("route",route);
+        outState.putString("birthday", birthDate);
 
     }
 
@@ -140,13 +166,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.btnUserRegister:
 
-                // set the image as a Bitmap object to store it in the internal memory.
-                imageFile = (ImageView) findViewById(R.id.imgUser);
-                imageFile.setDrawingCacheEnabled(true);
-                imageFile.buildDrawingCache();
-                Bitmap bitmap =  Bitmap.createBitmap(imageFile.getDrawingCache());
 
-                route = saveToInternalStorage(bitmap);
 
                 name = ((EditText) findViewById(R.id.txtUserName)).getText().toString();
                 lastName = ((EditText) findViewById(R.id.txtUserLastName)).getText().toString();
@@ -247,11 +267,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     cursor.close();
 
                     Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
-                    Drawable d = new BitmapDrawable(yourSelectedImage);
 
+
+                    Drawable d = new BitmapDrawable(yourSelectedImage);
                     out.println("STEP1");
                     iv.setBackground(d);
                     iv.setImageResource(0);
+
+                    // set the image as a Bitmap object to store it in the internal memory.
+                    imageFile = (ImageView) findViewById(R.id.imgUser);
+                    imageFile.setDrawingCacheEnabled(true);
+                    imageFile.buildDrawingCache();
+                    Bitmap bitmap =  Bitmap.createBitmap(imageFile.getDrawingCache());
+                    route = saveToInternalStorage(bitmap);
 
                 }
         }

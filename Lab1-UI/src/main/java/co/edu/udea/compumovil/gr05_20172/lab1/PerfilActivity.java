@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Layout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -26,16 +28,8 @@ public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SharedPreferences mPreferences;
-    ImageView profileImage;
-    TextView name;
-    TextView lastName;
-    TextView gender;
-    TextView birthday;
-    TextView phone;
-    TextView address;
-    TextView email;
-    TextView city;
     String route;
+    Bitmap b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +62,10 @@ public class PerfilActivity extends AppCompatActivity
         ((TextView)findViewById(R.id.txtProfileEmail)).setText("Email: "+ mPreferences.getString("email",null));
         ((TextView)findViewById(R.id.txtProfileCity)).setText("City: "+ mPreferences.getString("city",null));
 
+        //((TextView)findViewById(R.id.txtProfileNameNav)).setText(""+mPreferences.getString("name",null));
+        //(TextView)findViewById(R.id.txtProfileEmailNav)).setText(""+mPreferences.getString("email",null));
+
+
     }
 
     private void loadImageFromStorage(String path)
@@ -75,7 +73,7 @@ public class PerfilActivity extends AppCompatActivity
 
         try {
             File f=new File(path, "profile.jpg");
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            b = BitmapFactory.decodeStream(new FileInputStream(f));
             ImageView img=(ImageView)findViewById(R.id.imgProfileUser);
             img.setImageBitmap(b);
         }
@@ -101,6 +99,13 @@ public class PerfilActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.perfil, menu);
+
+
+
+
+        ((TextView)findViewById(R.id.txtProfileNameNav)).setText(""+mPreferences.getString("name",null));
+        ((TextView)findViewById(R.id.txtProfileEmailNav)).setText(""+mPreferences.getString("email",null));
+
         return true;
     }
 
@@ -125,7 +130,7 @@ public class PerfilActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.imgUserProfile) {
+        if (id == R.id.imgUserProfileNav) {
             // Handle the camera action
         } else if (id == R.id.updateProfile) {
 
