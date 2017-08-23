@@ -38,7 +38,7 @@
             style="@style/styleTxt"
             android:gravity="center"
             android:hint="@string/password"
-            android:inputType="textPersonName" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnLogin"
