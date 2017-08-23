@@ -30,11 +30,13 @@
             android:id="@+id/txtUserLog"
             style="@style/styleTxt"
             android:hint="@string/email"
+            android:gravity="center"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtUserPass"
             style="@style/styleTxt"
+            android:gravity="center"
             android:hint="@string/password"
             android:inputType="textPersonName" />
 

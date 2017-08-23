@@ -29,16 +29,10 @@
                 app:srcCompat="@drawable/profile"
                 android:onClick="onClick"/>
 
-            <ImageView
-                android:id="@+id/imgUserTest"
-                android:layout_width="144dp"
-                android:layout_height="108dp"
-                android:paddingTop="20dp"
-                android:onClick="onClick"/>
-
             <EditText
                 android:id="@+id/txtUserName"
                 style="@style/styleTxt"
+                android:gravity="center"
                 android:layout_marginTop="40dp"
                 android:hint="@string/name"
                 android:inputType="textCapSentences|textNoSuggestions" />
@@ -47,6 +41,7 @@
                 android:id="@+id/txtUserLastName"
                 style="@style/styleTxt"
                 android:hint="@string/lastName"
+                android:gravity="center"
                 android:inputType="textCapSentences|textNoSuggestions" />
 
             <RadioGroup
@@ -100,24 +95,28 @@
             <EditText
                 android:id="@+id/txtUserPhone"
                 style="@style/styleTxt"
+                android:gravity="center"
                 android:hint="@string/phone"
                 android:inputType="phone" />
 
             <EditText
                 android:id="@+id/txtUserAddress"
                 style="@style/styleTxt"
+                android:gravity="center"
                 android:hint="@string/address"
                 android:inputType="textPersonName|textNoSuggestions" />
 
             <EditText
                 android:id="@+id/txtUserEmail"
                 style="@style/styleTxt"
+                android:gravity="center"
                 android:inputType="textEmailAddress"
                 android:hint="@string/email" />
 
             <EditText
                 android:id="@+id/txtUserPassword"
                 style="@style/styleTxt"
+                android:gravity="center"
                 android:inputType="textPassword"
                 android:hint="@string/password" />
 

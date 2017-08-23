@@ -10,7 +10,15 @@
     <string name="female">Female</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
-    <string name="city">City</string>
+    <string name="city">City: </string>
     <string name="date">MM/DD/AA</string>
     <string name="dateLabel">Birthday: </string>
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="updateProfile">Update profile</string>
+    <string name="close">Close application</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

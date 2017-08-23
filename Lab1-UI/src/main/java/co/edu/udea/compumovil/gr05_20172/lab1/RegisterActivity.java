@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     // image setup
 
     ImageView imageFile;
-    String route;
+    String route="";
 
 
     @Override
@@ -121,7 +121,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                Log.d("TAG", "case1");
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         RegisterActivity.this,
@@ -135,7 +134,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.imgUser:
-                Log.d("TAG", "case2");
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, SELECTED_PICTURE);
                 break;
@@ -165,31 +163,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 email = ((EditText) findViewById(R.id.txtUserEmail)).getText().toString();
                 password =  ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
 
-                mEditor.putString("route", route);
-                mEditor.putString("name", name);
-                mEditor.putString("lastName", lastName);
-                mEditor.putString("gender", gender);
-                mEditor.putString("birthDate", birthDate);
-                mEditor.putString("phone", phone);
-                mEditor.putString("address", address);
-                mEditor.putString("email", email);
-                mEditor.putString("password", password);
-                mEditor.putString("city", city);
-                mEditor.commit();
+
 
                 if(name.equals("") || lastName.equals("") || gender.equals("") || phone.equals("")
                         || address.equals("") || email.equals("") || password.equals("") || city.equals("")
-                        || birthDate.equals("")){
+                        || birthDate.equals("") || route.equals("")){
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Faltan campos por rellenar", Toast.LENGTH_SHORT);
                     toast.show();
 
                 }else {
 
+                    mEditor.putString("route", route);
                     mEditor.putString("name", name);
                     mEditor.putString("lastName", lastName);
                     mEditor.putString("gender", gender);
-                    mEditor.putString("birthDate", birthDate);
+                    mEditor.putString("birthday", birthDate);
                     mEditor.putString("phone", phone);
                     mEditor.putString("address", address);
                     mEditor.putString("email", email);
@@ -197,8 +186,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     mEditor.putString("city", city);
                     mEditor.commit();
 
-                    // check if variables were saved in shared preferences.
-                    checkSharedPreferences();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
@@ -209,13 +196,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    private void checkSharedPreferences() {
+    /*private void checkSharedPreferences() {
         String name = mPreferences.getString("name", "");
         String password = mPreferences.getString("password", "");
         String route = mPreferences.getString("route","");
 
         Log.d("TAG", "name: " + name + " password: " + password + " route:" + route);
-    }
+    }*/
 
     private String saveToInternalStorage(Bitmap bitmapImage) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());

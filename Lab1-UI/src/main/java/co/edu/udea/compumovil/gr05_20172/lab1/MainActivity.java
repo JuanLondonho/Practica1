@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences mPreferences;
@@ -33,7 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 email = ((EditText)findViewById(R.id.txtUserLog)).getText().toString();
                 password = ((EditText)findViewById(R.id.txtUserPass)).getText().toString();
                 if(email.equalsIgnoreCase(mPreferences.getString("email", null)) && password.equals(mPreferences.getString("password", null))){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Entró", Toast.LENGTH_LONG);
+                    Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
+                    startActivity(intent);
+                }else {
+                    TextView textView = ((TextView)findViewById(R.id.txtUserPass));
+                    textView.setText("");
+                    Toast toast = Toast.makeText(getApplicationContext(),"Datos incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 break;

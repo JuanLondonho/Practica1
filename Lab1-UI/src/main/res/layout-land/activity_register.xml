@@ -56,24 +56,61 @@
 
                 </RadioGroup>
 
-                <TextView
-                    android:id="@+id/tvDate"
-                    style="@style/styleTxtView"
-                    android:clickable="true"
-                    android:onClick="onClick"
-                    android:text="@string/date"
-                    android:textColor="@color/colorPrimaryDark" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/dateLabel"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        style="@style/styleTxtView"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:text="@string/date"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/txtUserAddress"
                     style="@style/styleTxt"
                     android:hint="@string/address"
+                    android:gravity="center"
                     android:inputType="textPersonName|textNoSuggestions" />
 
-                <fragment
-                    android:id="@+id/place_autocomplete_fragment"
-                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-                    style="@style/styleTxt" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/city"
+                        android:layout_marginTop="14dp"/>
+
+                    <Space
+                        android:layout_width="8dp"
+                        android:layout_height="wrap_content" />
+
+                    <fragment
+                        android:id="@+id/place_autocomplete_fragment"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                        style="@style/styleTxt"
+                        android:layout_width="wrap_content" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -89,39 +126,44 @@
                     style="@style/styleTxt"
                     android:layout_marginTop="10dp"
                     android:hint="@string/name"
+                    android:gravity="center"
                     android:inputType="textCapSentences|textNoSuggestions" />
 
                 <EditText
                     android:id="@+id/txtUserLastName"
                     style="@style/styleTxt"
                     android:hint="@string/lastName"
+                    android:gravity="center"
                     android:inputType="textCapSentences|textNoSuggestions" />
 
                 <EditText
                     android:id="@+id/txtUserPhone"
                     style="@style/styleTxt"
+                    android:gravity="center"
                     android:hint="@string/phone"
                     android:inputType="phone" />
 
                 <EditText
                     android:id="@+id/txtUserEmail"
                     style="@style/styleTxt"
+                    android:gravity="center"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress" />
 
                 <EditText
                     android:id="@+id/txtUserPassword"
                     style="@style/styleTxt"
+                    android:gravity="center"
                     android:hint="@string/password"
                     android:inputType="textPassword" />
 
                 <Button
                     android:id="@+id/btnUserRegister"
                     style="@style/styleBtn"
+                    android:layout_height="29dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:text="@string/register"
-                    android:layout_height="29dp" />
+                    android:text="@string/register" />
 
             </LinearLayout>
 
