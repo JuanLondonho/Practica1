@@ -29,6 +29,13 @@
                 app:srcCompat="@drawable/profile"
                 android:onClick="onClick"/>
 
+            <ImageView
+                android:id="@+id/imgUserTest"
+                android:layout_width="144dp"
+                android:layout_height="108dp"
+                android:paddingTop="20dp"
+                android:onClick="onClick"/>
+
             <EditText
                 android:id="@+id/txtUserName"
                 style="@style/styleTxt"
