@@ -186,6 +186,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     mEditor.putString("city", city);
                     mEditor.commit();
 
+                    checkSharedPreferences();
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
@@ -196,13 +197,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    /*private void checkSharedPreferences() {
+    private void checkSharedPreferences() {
         String name = mPreferences.getString("name", "");
         String password = mPreferences.getString("password", "");
         String route = mPreferences.getString("route","");
 
         Log.d("TAG", "name: " + name + " password: " + password + " route:" + route);
-    }*/
+    }
 
     private String saveToInternalStorage(Bitmap bitmapImage) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());

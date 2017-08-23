@@ -1,6 +1,8 @@
 package co.edu.udea.compumovil.gr05_20172.lab1;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,10 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,6 +35,7 @@ public class PerfilActivity extends AppCompatActivity
     TextView address;
     TextView email;
     TextView city;
+    String route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,10 @@ public class PerfilActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mPreferences = getSharedPreferences("DATOS", 0);
+
+        route = mPreferences.getString("route", null);
+        loadImageFromStorage(route);
+
         ((TextView)findViewById(R.id.txtProfileName)).setText("Name: "+ mPreferences.getString("name",null));
         ((TextView)findViewById(R.id.txtProfileLastName)).setText("LastName: "+ mPreferences.getString("lastName",null));
         ((TextView)findViewById(R.id.txtProfileGender)).setText("Gender: "+ mPreferences.getString("gender",null));
@@ -58,6 +69,23 @@ public class PerfilActivity extends AppCompatActivity
         ((TextView)findViewById(R.id.txtProfileCity)).setText("City: "+ mPreferences.getString("city",null));
 
     }
+
+    private void loadImageFromStorage(String path)
+    {
+
+        try {
+            File f=new File(path, "profile.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            ImageView img=(ImageView)findViewById(R.id.imgProfileUser);
+            img.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -104,8 +132,6 @@ public class PerfilActivity extends AppCompatActivity
         } else if (id == R.id.applicationClose){
 
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
