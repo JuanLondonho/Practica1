@@ -222,6 +222,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
 
                     Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 break;

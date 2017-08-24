@@ -221,6 +221,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 break;

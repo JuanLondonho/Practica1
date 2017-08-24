@@ -149,7 +149,7 @@ public class PerfilActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.applicationClose){
-
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
