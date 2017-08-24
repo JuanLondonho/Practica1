@@ -53,17 +53,26 @@ public class PerfilActivity extends AppCompatActivity
         route = mPreferences.getString("route", null);
         loadImageFromStorage(route);
 
-        ((TextView)findViewById(R.id.txtProfileName)).setText("Name: "+ mPreferences.getString("name",null));
-        ((TextView)findViewById(R.id.txtProfileLastName)).setText("LastName: "+ mPreferences.getString("lastName",null));
-        ((TextView)findViewById(R.id.txtProfileGender)).setText("Gender: "+ mPreferences.getString("gender",null));
-        ((TextView)findViewById(R.id.txtProfileBirthday)).setText("Birthday:"+ mPreferences.getString("birthday",null));
-        ((TextView)findViewById(R.id.txtProfilePhone)).setText("Phone: "+ mPreferences.getString("phone",null));
-        ((TextView)findViewById(R.id.txtProfileAddress)).setText("Address: "+ mPreferences.getString("address",null));
-        ((TextView)findViewById(R.id.txtProfileEmail)).setText("Email: "+ mPreferences.getString("email",null));
-        ((TextView)findViewById(R.id.txtProfileCity)).setText("City: "+ mPreferences.getString("city",null));
+        String nameLabel = ((TextView)findViewById(R.id.txtProfileName)).getText().toString();
+        String lastNameLabel = ((TextView)findViewById(R.id.txtProfileLastName)).getText().toString();
+        String genderLabel = ((TextView)findViewById(R.id.txtProfileGender)).getText().toString();
+        String birthDayLabel = ((TextView)findViewById(R.id.txtProfileBirthday)).getText().toString();
+        String phoneLabel = ((TextView)findViewById(R.id.txtProfilePhone)).getText().toString();
+        String addressLabel = ((TextView)findViewById(R.id.txtProfileAddress)).getText().toString();
+        String emailLabel = ((TextView)findViewById(R.id.txtProfileEmail)).getText().toString();
+        String cityLabel = ((TextView)findViewById(R.id.txtProfileCity)).getText().toString();
 
-        //((TextView)findViewById(R.id.txtProfileNameNav)).setText(""+mPreferences.getString("name",null));
-        //(TextView)findViewById(R.id.txtProfileEmailNav)).setText(""+mPreferences.getString("email",null));
+
+
+        ((TextView)findViewById(R.id.txtProfileName)).setText( nameLabel+ ": "+ mPreferences.getString("name",null));
+        ((TextView)findViewById(R.id.txtProfileLastName)).setText(lastNameLabel+": "+ mPreferences.getString("lastName",null));
+        ((TextView)findViewById(R.id.txtProfileGender)).setText(genderLabel+": "+ mPreferences.getString("gender",null));
+        ((TextView)findViewById(R.id.txtProfileBirthday)).setText(birthDayLabel+": "+ mPreferences.getString("birthday",null));
+        ((TextView)findViewById(R.id.txtProfilePhone)).setText(phoneLabel+": "+ mPreferences.getString("phone",null));
+        ((TextView)findViewById(R.id.txtProfileAddress)).setText(addressLabel+": "+ mPreferences.getString("address",null));
+        ((TextView)findViewById(R.id.txtProfileEmail)).setText(emailLabel+": "+ mPreferences.getString("email",null));
+        ((TextView)findViewById(R.id.txtProfileCity)).setText(cityLabel+": " +mPreferences.getString("city",null));
+
 
 
     }

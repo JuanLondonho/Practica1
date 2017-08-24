@@ -172,10 +172,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 lastName = ((EditText) findViewById(R.id.txtUserLastName)).getText().toString();
 
                 if(((RadioButton)findViewById(R.id.rBtnMale)).isChecked()){
-                    gender = "male";
+                    gender = ((TextView)findViewById(R.id.rBtnMale)).getText().toString();
                 }
                 if(((RadioButton)findViewById(R.id.rBtnFemale)).isChecked()) {
-                    gender = "female";
+                    gender = ((TextView)findViewById(R.id.rBtnFemale)).getText().toString();
                 }
 
                 phone = ((EditText) findViewById(R.id.txtUserPhone)).getText().toString();

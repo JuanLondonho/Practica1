@@ -36,8 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 email = ((EditText)findViewById(R.id.txtUserLog)).getText().toString();
                 password = ((EditText)findViewById(R.id.txtUserPass)).getText().toString();
                 if(email.equalsIgnoreCase(mPreferences.getString("email", null)) && password.equals(mPreferences.getString("password", null))){
+
+                    ((EditText)findViewById(R.id.txtUserLog)).setText("");
+                    ((EditText) findViewById(R.id.txtUserPass)).setText("");
                     Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
                     startActivity(intent);
+
+
                 }else {
                     TextView textView = ((TextView)findViewById(R.id.txtUserPass));
                     textView.setText("");
