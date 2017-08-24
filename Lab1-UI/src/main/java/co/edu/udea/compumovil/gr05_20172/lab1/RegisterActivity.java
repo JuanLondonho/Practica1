@@ -109,8 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             try {
                 File f=new File(savedInstanceState.getString("route"), "profile.jpg");
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-                ImageView img=(ImageView)findViewById(R.id.imgUser);
-                img.setImageBitmap(b);
+                iv.setImageBitmap(b);
             }
             catch (FileNotFoundException e)
             {
@@ -121,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             birthDate = savedInstanceState.getString("birthday");
             route = savedInstanceState.getString("route");
+            city = savedInstanceState.getString("city");
 
             // restore all saved variables
 
@@ -139,6 +139,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ((TextView)findViewById(R.id.txtUserAddress)).setText(savedInstanceState.getString("address"));
             ((TextView)findViewById(R.id.txtUserEmail)).setText(savedInstanceState.getString("email"));
             ((TextView)findViewById(R.id.txtUserPassword)).setText(savedInstanceState.getString("password"));
+            ((TextView)findViewById(R.id.txtCity)).setText(savedInstanceState.getString("city"));
 
         }
 
@@ -242,7 +243,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // do something after the place was selected
 
         city = (String) place.getName();
-
+        ((TextView)findViewById(R.id.txtCity)).setText(city);
         Log.i("TAG", "Place: " + city);
     }
 

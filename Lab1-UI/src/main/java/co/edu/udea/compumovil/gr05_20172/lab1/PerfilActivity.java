@@ -141,10 +141,13 @@ public class PerfilActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.imgUserProfileNav) {
+
             // Handle the camera action
         } else if (id == R.id.updateProfile) {
+
             Intent intent = new Intent(getApplicationContext(), UpdateProfileActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.applicationClose){
 
         }
