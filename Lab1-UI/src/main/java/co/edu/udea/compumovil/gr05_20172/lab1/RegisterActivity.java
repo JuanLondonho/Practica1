@@ -8,13 +8,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-// 24 or higher
-//import android.icu.util.Calendar;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -123,19 +119,48 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             // persist the birthDate and the route link after consecutive rotations
 
-            birthDate =savedInstanceState.getString("birthday");
+            birthDate = savedInstanceState.getString("birthday");
             route = savedInstanceState.getString("route");
 
+            // restore all saved variables
+
             ((TextView)findViewById(R.id.tvDate)).setText(savedInstanceState.getString("birthday"));
+            ((TextView)findViewById(R.id.txtUserName)).setText(savedInstanceState.getString("name"));
+            ((TextView)findViewById(R.id.txtUserLastName)).setText(savedInstanceState.getString("lastName"));
+
+            if( savedInstanceState.getString("gender").equals(((TextView)findViewById(R.id.rBtnMale)).getText().toString()) ){
+                ((RadioButton)findViewById(R.id.rBtnMale)).toggle();
+            }
+            if ( savedInstanceState.getString("gender").equals(((TextView)findViewById(R.id.rBtnFemale)).getText().toString())) {
+                ((RadioButton)findViewById(R.id.rBtnFemale)).toggle();
+            }
+
+            ((TextView)findViewById(R.id.txtUserPhone)).setText(savedInstanceState.getString("phone"));
+            ((TextView)findViewById(R.id.txtUserAddress)).setText(savedInstanceState.getString("address"));
+            ((TextView)findViewById(R.id.txtUserEmail)).setText(savedInstanceState.getString("email"));
+            ((TextView)findViewById(R.id.txtUserPassword)).setText(savedInstanceState.getString("password"));
+
         }
 
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString("route",route);
-        outState.putString("birthday", birthDate);
 
+        outState.putString("city", city);
+        outState.putString("route",route);
+
+        // save all variables that are only set when clicked on "register"
+        persist();
+
+        outState.putString("name", name);
+        outState.putString("lastName", lastName);
+        outState.putString("gender", gender);
+        outState.putString("birthday", birthDate);
+        outState.putString("phone", phone);
+        outState.putString("address", address);
+        outState.putString("email", email);
+        outState.putString("password", password);
     }
 
     @Override
@@ -167,23 +192,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnUserRegister:
 
 
-
-                name = ((EditText) findViewById(R.id.txtUserName)).getText().toString();
-                lastName = ((EditText) findViewById(R.id.txtUserLastName)).getText().toString();
-
-                if(((RadioButton)findViewById(R.id.rBtnMale)).isChecked()){
-                    gender = ((TextView)findViewById(R.id.rBtnMale)).getText().toString();
-                }
-                if(((RadioButton)findViewById(R.id.rBtnFemale)).isChecked()) {
-                    gender = ((TextView)findViewById(R.id.rBtnFemale)).getText().toString();
-                }
-
-                phone = ((EditText) findViewById(R.id.txtUserPhone)).getText().toString();
-                address = ((EditText) findViewById(R.id.txtUserAddress)).getText().toString();
-                email = ((EditText) findViewById(R.id.txtUserEmail)).getText().toString();
-                password =  ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
-
-
+                // save most of the variables
+                persist();
 
                 if(name.equals("") || lastName.equals("") || gender.equals("") || phone.equals("")
                         || address.equals("") || email.equals("") || password.equals("") || city.equals("")
@@ -216,6 +226,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        month = month + 1;
+        String date =  + month + "/" + day  + "/" + year;
+
+        birthDate = date;
+
+        displayDate.setText(date);
+        Log.d("TAG", "onDateSet: " + birthDate);
+    }
+
+    @Override
+    public void onPlaceSelected(Place place) {
+        // do something after the place was selected
+
+        city = (String) place.getName();
+
+        Log.i("TAG", "Place: " + city);
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.i("TAG", "An error occurred: " + status);
+    }
 
     private void checkSharedPreferences() {
         String name = mPreferences.getString("name", "");
@@ -247,6 +281,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
         return directory.getAbsolutePath();
+    }
+
+    public void persist() {
+
+        name = ((EditText) findViewById(R.id.txtUserName)).getText().toString();
+        lastName = ((EditText) findViewById(R.id.txtUserLastName)).getText().toString();
+
+        if(((RadioButton)findViewById(R.id.rBtnMale)).isChecked()){
+            gender = ((TextView)findViewById(R.id.rBtnMale)).getText().toString();
+        }
+        if(((RadioButton)findViewById(R.id.rBtnFemale)).isChecked()) {
+            gender = ((TextView)findViewById(R.id.rBtnFemale)).getText().toString();
+        }
+
+        phone = ((EditText) findViewById(R.id.txtUserPhone)).getText().toString();
+        address = ((EditText) findViewById(R.id.txtUserAddress)).getText().toString();
+        email = ((EditText) findViewById(R.id.txtUserEmail)).getText().toString();
+        password =  ((EditText) findViewById(R.id.txtUserPassword)).getText().toString();
+
+        Log.d("TAG", name);
     }
 
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -285,28 +339,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        month = month + 1;
-        String date =  + month + "/" + day  + "/" + year;
 
-        birthDate = date;
-
-        displayDate.setText(date);
-        Log.d("TAG", "onDateSet: " + birthDate);
-    }
-
-    @Override
-    public void onPlaceSelected(Place place) {
-        // do something after the place was selected
-
-        city = (String) place.getName();
-
-        Log.i("TAG", "Place: " + city);
-    }
-
-    @Override
-    public void onError(Status status) {
-        Log.i("TAG", "An error occurred: " + status);
-    }
 }
