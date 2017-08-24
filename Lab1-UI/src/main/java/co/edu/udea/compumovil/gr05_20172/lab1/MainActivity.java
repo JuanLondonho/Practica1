@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ((EditText) findViewById(R.id.txtUserPass)).setText("");
                     Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
                     startActivity(intent);
+                    finish();
 
 
                 }else {

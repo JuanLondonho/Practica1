@@ -68,11 +68,11 @@ public class PerfilActivity extends AppCompatActivity
         ((TextView)findViewById(R.id.txtProfileName)).setText( nameLabel+ ": "+ mPreferences.getString("name",null));
         ((TextView)findViewById(R.id.txtProfileLastName)).setText(lastNameLabel+": "+ mPreferences.getString("lastName",null));
         ((TextView)findViewById(R.id.txtProfileGender)).setText(genderLabel+": "+ mPreferences.getString("gender",null));
-        ((TextView)findViewById(R.id.txtProfileBirthday)).setText(birthDayLabel+": "+ mPreferences.getString("birthday",null));
+        ((TextView)findViewById(R.id.txtProfileBirthday)).setText(birthDayLabel+" "+ mPreferences.getString("birthday",null));
         ((TextView)findViewById(R.id.txtProfilePhone)).setText(phoneLabel+": "+ mPreferences.getString("phone",null));
         ((TextView)findViewById(R.id.txtProfileAddress)).setText(addressLabel+": "+ mPreferences.getString("address",null));
         ((TextView)findViewById(R.id.txtProfileEmail)).setText(emailLabel+": "+ mPreferences.getString("email",null));
-        ((TextView)findViewById(R.id.txtProfileCity)).setText(cityLabel+": " +mPreferences.getString("city",null));
+        ((TextView)findViewById(R.id.txtProfileCity)).setText(cityLabel+" " +mPreferences.getString("city",null));
 
 
 
