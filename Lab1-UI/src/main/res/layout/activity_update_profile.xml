@@ -136,11 +136,10 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnUserRegister"
+                android:id="@+id/btnUserUpdate"
                 style="@style/styleBtn"
                 android:layout_marginTop="40dp"
-                android:text="@string/update"
-                />
+                android:text="@string/update" />
 
 
         </LinearLayout>
