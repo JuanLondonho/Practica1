@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.gr05_20172.lab1;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -142,7 +143,8 @@ public class PerfilActivity extends AppCompatActivity
         if (id == R.id.imgUserProfileNav) {
             // Handle the camera action
         } else if (id == R.id.updateProfile) {
-
+            Intent intent = new Intent(getApplicationContext(), UpdateProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.applicationClose){
 
         }
