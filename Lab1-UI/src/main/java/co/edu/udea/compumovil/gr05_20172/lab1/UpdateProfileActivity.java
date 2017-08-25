@@ -219,7 +219,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                     mEditor.commit();
 
                     checkSharedPreferences();
-
                     Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
                     startActivity(intent);
                     finish();
