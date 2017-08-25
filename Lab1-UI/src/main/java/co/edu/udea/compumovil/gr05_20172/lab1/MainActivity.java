@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else {
                     TextView textView = ((TextView)findViewById(R.id.txtUserPass));
                     textView.setText("");
-                    Toast toast = Toast.makeText(getApplicationContext(),"Datos incorrectos", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.validation), Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 break;

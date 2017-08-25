@@ -200,7 +200,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                         || address.equals("") || email.equals("") || password.equals("") || city.equals("")
                         || birthDate.equals("") || route.equals("")){
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "Faltan campos por rellenar", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing), Toast.LENGTH_SHORT);
                     toast.show();
 
                 }else {

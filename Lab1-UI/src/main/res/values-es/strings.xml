@@ -19,6 +19,8 @@
     <string name="updateProfile">Actualizar perfil</string>
     <string name="close">Cerrar aplicación</string>
     <string name="update">Actualizar</string>
+    <string name="validation">Usuario Incorrecto</string>
+    <string name="missing">Faltan campos por rellenar</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
